@@ -2,15 +2,16 @@ public class vertice {
     
     public static void main(String[] args) throws Exception
     {
-        double[] a = {1, 1};
-        double[] b = {2, 2};
-        double[] c = {1.5, 3};
-        System.out.println("abc, " + verticeTurnProblemDegrees(a, b, c) + " degrees, without rounding");
-        System.out.println("acb, " + verticeTurnProblemDegrees(a, c, b) + " degrees, without rounding");
-        System.out.println("bca, " + verticeTurnProblemDegrees(b, c, a) + " degrees, without rounding");
-        System.out.println("bac, " + verticeTurnProblemDegrees(b, a, a) + " degrees, without rounding");
-        System.out.println("cab, " + verticeTurnProblemDegrees(c, a, b) + " degrees, without rounding");
-        System.out.println("cba, " + verticeTurnProblemDegrees(c, b, a) + " degrees, without rounding");
+        double[] a = {((double) Math.round((Math.random() * 10) * 10) / 10), ((double) Math.round((Math.random() * 10) * 10) / 10)};
+        double[] b = {((double) Math.round((a[0] * 2 / Math.random()) * 10) / 10), ((double) Math.round((a[1] * 2 / Math.random()) * 10) / 10)};
+        double[] c = {((double) Math.round((a[0] * 1.5 / Math.random()) * 10) / 10), ((double) Math.round((a[1] * 3 / Math.random()) * 10) / 10)};
+        System.out.println(a[0] + " a[0]");
+        System.out.println(a[1] + " a[1]");
+        System.out.println(b[0] + " b[0]");
+        System.out.println(b[1] + " b[1]");
+        System.out.println(c[0] + " c[0]");
+        System.out.println(c[1] + " c[1]");
+        System.out.println(verticeTurnProblemDegrees(a, b, c) + " degrees, without rounding");
 
         double[] aa = {5, 12};
         double[] ab = {10, 5};
@@ -88,9 +89,9 @@ public class vertice {
         double[] BA = verticeSubtraction(B, A);
         double[] Cn = verticeNormalize(CA);
         double[] Bn = verticeNormalize(BA);
-        // System.out.println("radians = " + verticeMultiplication(Bn, Cn));
+        System.out.println("radians = " + verticeMultiplication(Bn, Cn));
         if(verticeMultiplication(Bn, Cn) < 0){
-            return Math.acos(verticeMultiplication(Bn, Cn)) * (-180) /  3.14159;
+            return (Math.acos(verticeMultiplication(Bn, Cn)) * (180) /  3.14159) - 360;
         }
         double angle = Math.acos(verticeMultiplication(Bn, Cn)) * 180 /  3.14159;
         return angle;
