@@ -1,6 +1,7 @@
 Fragment
 // Starts with Spiked Vertex Shader and adds in various parts
 // from other examples for a more interesting appearence
+// Plus messing around with 'random' colors
 precision highp float;
 
 varying vec3 vNormal;
@@ -8,7 +9,6 @@ varying vec3 vNormal;
 uniform vec3 color;
 
 uniform vec3 ambientColor;
-
 
 varying vec3 vPosition;
 
@@ -49,8 +49,6 @@ void main() {
     gl_FragColor = vec4( vec3(vUv, 0), 1.0 ); //From Shader with UVs
 
     // gl_FragColor = vec4( (sin(time)*color + vec3(sin(vUv.x * 1000.0), sin(vUv.y*500.0),0.0 ))* lightStrength + ambientColor, 1.0 ); //Checkerboard color
-
-
 }
 
 Vertex
@@ -66,7 +64,6 @@ attribute vec3 normal;
 varying vec3 vNormal;
 attribute vec2 uv;
 
-
 varying vec3 vPosition;
 
 uniform float time;
@@ -78,17 +75,15 @@ void main() {
     vUv = uv;
 
     vec3 vPosition = ( modelMatrix * vec4( position, 1.0 )).xyz;
-    // Default 
+    //Default 
     // gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vNormal * cos(uv.x*1000.0)*cos(time), 1.0 );
 
     // Added moving vertices to go back and forth
     // gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(-sin(time), 0.0, 0.0) + vNormal * cos(uv.x*1000.0)*cos(time), 1.0 );
     // Or can use Distorted UV shader version
-    // gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(sin(time)*uv.x, 0.0, 0.0) + vNormal * cos(uv.x*1000.0)*cos(time), 1.0 );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(sin(time)*uv.x, 0.0, 0.0) + vNormal * cos(uv.x*1000.0)*cos(time), 1.0 );
     //Just Moveing
     // gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(-sin(time), 0.0, 0.0), 1.0 );
     // And just distortion
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(-sin(time)*uv.x, 0.0, 0.0), 1.0 );
-    
-
+    // gl_Position = projectionMatrix * modelViewMatrix * vec4( position + vec3(-sin(time)*uv.x, 0.0, 0.0), 1.0 );
 }
